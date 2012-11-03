@@ -1,0 +1,52 @@
+alias vi=vim
+shopt -s checkwinsize
+export GREP_OPTIONS='--color=auto'
+
+WHITE="\[\033[1;37m\]"
+PURPLE="\[\033[0;35m\]"
+YELLOW="\[\033[1;33m\]"
+CYAN="\[\033[1;36m\]"
+
+function prompt_command
+{
+	if [ -z $PROMPT_COLOUR ] ; then
+		PROMPT_COLOUR="\[\033[1;35m\]"
+	fi
+        NO_COLOUR="\[\033[0m\]"
+        CYAN="\[\033[1;36m\]"
+
+        COORDINDATES="${USER}@${HOSTNAME}:${PWD}"
+        COORDLEN=${#COORDINDATES}
+        FILL=$[${COLUMNS} - ${COORDLEN} - 1]
+        COORDINDATES="${CYAN}${COORDINDATES}"
+        if [ $FILL -gt 4 ] ; then
+                COORDINDATESLINE="${PROMPT_COLOUR}-{${COORDINDATES}${PROMPT_COLOUR}}"
+                while [ ${FILL} -gt 2 ] ; do
+                        COORDINDATESLINE=${COORDINDATESLINE}-
+                        FILL=$[${FILL} - 1]
+                done
+        else
+                COORDINDATESLINE=$COORDINDATES
+        fi
+	case $TERM in
+        	xterm*)
+			IFS='/' read -ra PWD_ARRAY <<< "$PWD"
+			BACKWARDS_CORDS=""
+			for((i=${#PWD_ARRAY[@]}-1;i>0;i--)); do
+				BACKWARDS_CORDS="$BACKWARDS_CORDS${PWD_ARRAY[$i]}/"
+			done
+			BACKWARDS_CORDS="$BACKWARDS_CORDS:$HOSTNAME@$USER"
+			TITLEBAR="\[\033]0;$BACKWARDS_CORDS\007\]"
+        	;;
+        	*)
+                	TITLEBAR=""
+        	;;
+	esac
+        export PS1="${TITLEBAR}\n${COORDINDATESLINE}\n${NO_COLOUR}\\$ "
+}
+function stealth_shell
+{
+	export STEALTH_SHELL=1
+	unset HISTFILE
+}
+export PROMPT_COMMAND="prompt_command"
