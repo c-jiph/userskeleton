@@ -5,3 +5,7 @@ This is a local shop for local people; there is nothing for you here.
 		rm -rf userskeleton/ &&
 		git config --local user.email "" && 
 		git config --local user.name "C-JiPH"
+
+Also add to .bashrc
+	
+	source .bashrc-git

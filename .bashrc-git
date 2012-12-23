@@ -1,7 +1,8 @@
 alias vi=vim
-alias ls=ls --color
+alias ls='ls --color'
 shopt -s checkwinsize
 export GREP_OPTIONS='--color=auto'
+export EDITOR=vim
 
 WHITE="\[\033[1;37m\]"
 PURPLE="\[\033[0;35m\]"
