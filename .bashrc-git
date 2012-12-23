@@ -1,4 +1,5 @@
 alias vi=vim
+alias ls=ls --color
 shopt -s checkwinsize
 export GREP_OPTIONS='--color=auto'
 
