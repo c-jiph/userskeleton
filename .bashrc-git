@@ -2,6 +2,7 @@ alias vi=vim
 alias ls='ls --color'
 alias sl='ls --color'
 shopt -s checkwinsize
+shopt -s histappend
 export GREP_OPTIONS='--color=auto'
 export EDITOR=vim
 
@@ -46,6 +47,7 @@ function prompt_command
         	;;
 	esac
         export PS1="${TITLEBAR}\n${COORDINDATESLINE}\n${NO_COLOUR}\\$ "
+        history -a
 }
 function stealth_shell
 {
