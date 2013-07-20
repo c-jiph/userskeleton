@@ -8,4 +8,4 @@ This is a local shop for local people; there is nothing for you here.
 
 Also add to .bashrc
 	
-	source .bashrc-git
+	source ~/.bashrc-git
