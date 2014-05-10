@@ -14,7 +14,7 @@ let g:ConqueTerm_CloseOnEnd = 1
 
 
 map <F7> :new<CR>:ConqueTerm bash<CR>
-imap <F7> :new<CR><ESC>:ConqueTerm bash<CR>
+imap <F7> <ESC>:new<CR>:ConqueTerm bash<CR>
 
 set pastetoggle=<C-P>
 
