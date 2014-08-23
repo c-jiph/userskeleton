@@ -32,3 +32,7 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 syn on
 filetype on
 au BufNewFile,BufRead *.maxj set filetype=java
+
+set cul
+autocmd InsertEnter * set nocul
+autocmd InsertLeave * set cul
