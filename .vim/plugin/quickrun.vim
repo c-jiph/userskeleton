@@ -46,6 +46,7 @@ function! ExecuteInterpreter()
 
 	if !exists("w:interpreter_language")
 		let language_map = {
+			\ 'jruby'   : ['rb', '/bin/bash /network-raid/opt/jruby/bin/jruby', '/network-raid/opt/jruby/bin/jruby'],
 			\ 'ruby'   : ['rb', '/usr/bin/ruby', 'ruby'],
 			\ 'python' : ['py', '/usr/bin/python', 'python'],
 			\ 'bash'   : ['sh', '/bin/bash', 'sh'],
