@@ -369,7 +369,7 @@ class Conque:
         # check subprocess status, but not every time since it's CPU expensive
         if self.read_count % 32 == 0:
             if not self.proc.is_alive():
-                vim.command('let x = conque_term#get_instance() | call x.close()')
+                vim.command('let x = conque_term#get_instance() | x.close()')
                 return
 
             if self.read_count > 512:
