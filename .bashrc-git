@@ -1,13 +1,61 @@
-alias vi=vim
+alias vi=vim_check
 alias ls='ls --color'
+alias sl='ls --color'
 shopt -s checkwinsize
-export GREP_OPTIONS='--color=auto'
+shopt -s histappend
+export GREP_OPTIONS='--color=auto --exclude-dir=.svn'
 export EDITOR=vim
 
 WHITE="\[\033[1;37m\]"
 PURPLE="\[\033[0;35m\]"
 YELLOW="\[\033[1;33m\]"
 CYAN="\[\033[1;36m\]"
+
+function check_sudo_vim() 
+{
+	local reason=$1
+	shift
+
+	echo -n "$reason, use sudo? [Y/n/q]:"
+	read response
+	case $response in
+		[nN])
+			return 1
+			;;
+		[qQ])
+			return 0
+			;;
+		*)
+			sudo vim "$@"
+			return 0
+			;;
+	esac
+}
+
+function vim_check()
+{
+	if [[ $# == 0 ]] && ! [ -w . ] ; then
+		check_sudo_vim "Current directory is not writable" && return
+	fi
+
+	for x in "$@" ; do
+		if [ -d "$x" ] ; then
+			continue
+		fi
+
+		if [ -e "$x" ] ; then 
+			if ! [ -w "$x" ] ; then
+				check_sudo_vim "File '$x' is not writable" "$@" && return
+			fi
+		else
+			if ! [ -w . ] ; then
+				check_sudo_vim "File '$x' does not exist and current directory is not writable" "$@" && return
+			fi
+		fi
+	done
+
+	vim "$@"
+}
 
 function prompt_command
 {
@@ -45,6 +93,7 @@ function prompt_command
         	;;
 	esac
         export PS1="${TITLEBAR}\n${COORDINDATESLINE}\n${NO_COLOUR}\\$ "
+        history -a
 }
 function stealth_shell
 {
