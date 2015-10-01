@@ -95,9 +95,15 @@ function prompt_command
         export PS1="${TITLEBAR}\n${COORDINDATESLINE}\n${NO_COLOUR}\\$ "
         history -a
 }
+
 function stealth_shell
 {
 	export STEALTH_SHELL=1
 	unset HISTFILE
 }
+
+if [ $TERM = xterm ] ; then
+	export TERM=xterm-256color
+fi
+
 export PROMPT_COMMAND="prompt_command"
