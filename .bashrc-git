@@ -1,9 +1,9 @@
 alias vi=vim_check
 alias ls='ls --color'
 alias sl='ls --color'
+alias grep='grep --color=auto'
 shopt -s checkwinsize
 shopt -s histappend
-export GREP_OPTIONS='--color=auto --exclude-dir=.svn'
 export EDITOR=vim
 
 WHITE="\[\033[1;37m\]"
