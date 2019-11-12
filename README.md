@@ -6,6 +6,8 @@ This is a local shop for local people; there is nothing for you here.
 		git config --local user.email "" && 
 		git config --local user.name "C-JiPH"
 
-Also add to .bashrc
+Add to .bashrc:
 	
 	source ~/.bashrc-git
+
+Install FZF if possible.

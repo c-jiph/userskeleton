@@ -5,6 +5,10 @@ alias grep='grep --color=auto'
 shopt -s checkwinsize
 shopt -s histappend
 export EDITOR=vim
+HISTSIZE=1000000
+export FZF_TMUX=1
+[ -f /usr/share/fzf/shell/key-bindings.bash ] && . /usr/share/fzf/shell/key-bindings.bash
+
 
 WHITE="\[\033[1;37m\]"
 PURPLE="\[\033[0;35m\]"
