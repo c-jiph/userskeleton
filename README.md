@@ -10,4 +10,9 @@ Add to .bashrc:
 	
 	source ~/.bashrc-git
 
+Add to .gitconfig
+
+        [include]
+            path = ~/.gitconfig-git
+
 Install FZF if possible.

@@ -1,0 +1,3 @@
+[alias]
+    dif = diff
+    sl = log --all --decorate --oneline --graph
