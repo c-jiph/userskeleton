@@ -1,3 +1,4 @@
 [alias]
     dif = diff
     gl = log --all --decorate --oneline --graph
+    st = status
