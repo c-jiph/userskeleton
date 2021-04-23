@@ -1,4 +1,7 @@
 [alias]
+    root = !git rev-parse --show-toplevel
+    rebase-in-progress = ![ -f "$(git root)/.git/REBASE_HEAD" ] && echo -e "\\\\n\\\\033[1\\;31m**REBASE IN PROGRESS**\\\\033[1\\;0m"
+    cherry-pick-in-progress = ![ -f "$(git root)/.git/CHERRY_PICK_HEAD" ] && echo -e "\\\\n\\\\033[1\\;31m**CHERRY-PICK IN PROGRESS**\\\\033[1\\;0m"
     dif = diff
-    gl = log --all --decorate --oneline --graph
+    gl = !git log --branches --not --remotes --oneline --graph && echo && git show --oneline --quiet && ( git rebase-in-progress || git cherry-pick-in-progress )
     st = status

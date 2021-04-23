@@ -2,6 +2,7 @@ alias vi=vim_check
 alias ls='ls --color'
 alias sl='ls --color'
 alias grep='grep --color=auto'
+alias vimg='vim +Git +only'
 shopt -s checkwinsize
 shopt -s histappend
 export EDITOR=vim
