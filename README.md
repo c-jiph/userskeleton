@@ -8,7 +8,7 @@ This is a local shop for local people; there is nothing for you here.
 
 Add to .bashrc:
 	
-	source ~/.bashrc-git
+	echo "source ~/.bashrc-git" > ~/.bashrc
 
 Add to .gitconfig
 
