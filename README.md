@@ -8,12 +8,16 @@ This is a local shop for local people; there is nothing for you here.
 
 Add to .bashrc:
 	
-	echo "source ~/.bashrc-git" > ~/.bashrc
+	echo "source ~/.bashrc-git" >> ~/.bashrc
 
 Add to .gitconfig
 
         [include]
             path = ~/.gitconfig-git
+
+Add to .gdbinit
+
+        echo "source ~/.gdbinit-git" >> ~/.gdbinit
 
 Install FZF if possible.
 
