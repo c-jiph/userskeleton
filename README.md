@@ -12,8 +12,7 @@ Add to .bashrc:
 
 Add to .gitconfig
 
-        [include]
-            path = ~/.gitconfig-git
+        echo -e "[include]\n    path = ~/.gitconfig-git" >> .gitconfig
 
 Add to .gdbinit
 
