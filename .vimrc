@@ -9,13 +9,6 @@ set ignorecase
 set smartcase
 set swb=useopen
 
-let g:ConqueTerm_CWInsert = 1
-let g:ConqueTerm_CloseOnEnd = 1
-
-
-map <F7> :new<CR>:ConqueTerm bash<CR>
-imap <F7> <ESC>:new<CR>:ConqueTerm bash<CR>
-
 set pastetoggle=<C-P>
 
 function! CleverTab()
