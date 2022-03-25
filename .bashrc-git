@@ -20,6 +20,62 @@ elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] ; then
   . /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
+GIT_BIN="$(which git)"
+alias git=git_wrapper
+
+function git_root() {
+  while [[ $# != 0 ]] ; do
+    if [[ "$1" == -C && $# -gt 1 ]] ; then
+        echo "$2"
+        return 0
+    fi
+    shift
+  done
+  "$GIT_BIN" root
+}
+
+function git_conflicts_file() {
+  local saw_file=/.git/saw-conflicts-after-rebase
+  echo "$(git_root "$@")"$saw_file
+}
+
+function git_wrapper() {
+  local args=("$@")
+  if [[ "$*" =~ .*commit.*--amend.* ]] ; then
+    local forced=0
+    for ((i = 0; i < ${#args[@]}; i++)) ; do
+      if [ "${args[i]}" == --force ] ; then
+        forced=1
+        unset 'args[i]'
+        break
+      fi
+    done
+    if [[ "$forced" == 1 ]] ; then
+      rm -f "$(git_conflicts_file "$@")"
+    else
+      if [[ -f "$(git_conflicts_file "$@")" ]] ; then
+        cat >&2 <<MSG
+Recently saw conflicts during rebase, are you sure you don't want to rebase --continue?
+Use --force if needed.
+MSG
+        return 1
+      fi
+    fi
+  fi
+
+  "$GIT_BIN" "${args[@]}"
+  local result=$?
+
+  if [[ "$1" == rebase ]] ; then
+    if [[ "$("$GIT_BIN" -C "$(git_root "$@")" diff  --name-only --diff-filter=U | wc -l)" -gt 0 ]] ; then
+      touch "$(git_conflicts_file "$@")"
+    else
+      rm -f "$(git_conflicts_file "$@")"
+    fi
+  fi
+
+  return $result
+}
 
 function check_sudo_vim() 
 {
