@@ -1,5 +1,6 @@
 set title
 set laststatus=2
+set ruler
 set ci
 set pi
 set ai
