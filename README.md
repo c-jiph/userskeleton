@@ -1,28 +1,3 @@
 This is a local shop for local people; there is nothing for you here.
 
-	git clone https://github.com/c-jiph/userskeleton.git &&
-		find userskeleton/ -maxdepth 1 -exec mv {} . \; &&
-		rm -rf userskeleton/ &&
-		git config --local user.email "" && 
-		git config --local user.name "C-JiPH"
-
-Add to .bashrc:
-	
-	echo "source ~/.bashrc-git" >> ~/.bashrc
-
-Add to .gitconfig
-
-        echo -e "[include]\n    path = ~/.gitconfig-git" >> .gitconfig
-
-Add to .gdbinit
-
-        echo "source ~/.gdbinit-git" >> ~/.gdbinit
-
-Install FZF if possible.
-
-Install Vim Fugitive if possible:
-
-	mkdir -p ~/.vim/pack/tpope/start
-	cd ~/.vim/pack/tpope/start
-	git clone https://tpope.io/vim/fugitive.git
-	vim -u NONE -c "helptags fugitive/doc" -c q
+	curl https://raw.githubusercontent.com/c-jiph/userskeleton/master/bootstrap.sh | bash -xe

@@ -135,11 +135,22 @@ function vim_check()
 #YELLOW="\[\033[1;33m\]"
 #CYAN="\[\033[1;36m\]"
 
+if [ -z "$PROMPT_COLOUR" ] ; then
+ 
+  function _byte_for_hostname() {
+    local hostname="$(uname -n)"
+    local sum=0
+    for ((i=0; i < ${#hostname}; i++)); do
+      sum=$((($sum + $(LC_TYPE=C printf '%d' "'${hostname:$i:1}")) % 256))
+    done
+    echo -n "$sum"
+  }
+
+  PROMPT_COLOUR=$(printf "\e[38;5;%dm" $(_byte_for_hostname))
+fi
+
 function prompt_command
 {
-	if [ -z "$PROMPT_COLOUR" ] ; then
-		PROMPT_COLOUR="\[\033[1;35m\]"
-	fi
         NO_COLOUR="\[\033[0m\]"
         CYAN="\[\033[1;36m\]"
 
