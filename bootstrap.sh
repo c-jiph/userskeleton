@@ -1,16 +1,17 @@
 #!/bin/bash -xe
 
 . /etc/os-release
+export NAME
 
 function install() {
   local pkg_name="$1"
   local install_cmd="apt-get install"
 
   case "$NAME" in
-    *OpenWRT*)
+    *OpenWrt*)
       install_cmd="opkg install"
       case "$pkg_name" in
-        fzf)
+        fzf|mosh)
           return
           ;;
       esac
@@ -21,7 +22,7 @@ function install() {
 }
 
 function is_openwrt() {
-  [[ "$NAME" == *OpenWRT* ]]
+  [[ "$NAME" == *OpenWrt* ]]
 }
 
 if is_openwrt ; then
