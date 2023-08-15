@@ -5,7 +5,7 @@ export NAME
 
 function install() {
   local pkg_name="$1"
-  local install_cmd="apt-get install"
+  local install_cmd="sudo apt-get install"
 
   case "$NAME" in
     *OpenWrt*)
