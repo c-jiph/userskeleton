@@ -3,5 +3,5 @@ alias -a rnext = reverse-next
 alias -a rcont = reverse-cont
 alias -a rfinish = reverse-finish
 define vim
-  source ~/gdb-vim.py
+  source ~/gdb_vim.py
 end
