@@ -1,13 +1,37 @@
 #!/bin/bash -x
 
-. /etc/os-release
+if [ "$(uname)" = "Darwin" ]; then
+  NAME="macOS"
+else
+  . /etc/os-release
+fi
 export NAME
+
+if [ "$NAME" = "macOS" ] && ! command -v brew &>/dev/null; then
+  read -p "Homebrew is not installed. Install it? [y/N] " answer
+  if [[ "$answer" =~ ^[Yy]$ ]]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    echo "Homebrew is required on macOS. Exiting."
+    exit 1
+  fi
+fi
 
 function install() {
   local pkg_name="$1"
+  local bin_name="${2:-$1}"
+
+  if command -v "$bin_name" &>/dev/null; then
+    echo "$bin_name is already installed, skipping."
+    return
+  fi
+
   local install_cmd="sudo apt-get install -y"
 
   case "$NAME" in
+    macOS)
+      install_cmd="brew install"
+      ;;
     *OpenWrt*)
       install_cmd="opkg install"
       case "$pkg_name" in
@@ -27,7 +51,11 @@ function is_openwrt() {
 
 if is_openwrt ; then
   install bash
-  install shadow_chsh
+  install shadow_chsh chsh
+  chsh -s /bin/bash
+fi
+
+if [ "$NAME" = "macOS" ]; then
   chsh -s /bin/bash
 fi
 
